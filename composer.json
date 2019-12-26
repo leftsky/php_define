@@ -1,0 +1,16 @@
+{
+  "name": "leftsky/php_define",
+  "description": "PHP 宏定义",
+  "authors": [
+    {
+      "name": "leftsky",
+      "email": "leftsky@vip.qq.com"
+    }
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "leftsky\\": "src/"
+    }
+  }
+}
