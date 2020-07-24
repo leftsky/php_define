@@ -1,9 +1,40 @@
 <?php
 /**
  * Author: Left.Sky
- * Date: 2019/12/26
- * Version: 0.0.1
+ * Date: 2020/07/24
+ * Version: 0.0.2
  */
+
+namespace Leftsky\phpDefine;
+
+class Util
+{
+    public function ERR($code)
+    {
+        switch ($code) {
+            case ERR_SUCCESS:
+                return '操作成功';
+            case ERR_FAILED:
+                return '失败';
+            case ERR_ARGV:
+                return '参数错误';
+            case ERR_ARGV_NO_ENOUGH:
+                return '参数不足';
+            case ERR_NO_FOUND:
+                return '找不到';
+            case ERR_NO_FOUND_HARD:
+                return '找不到硬件';
+            case ERR_NO_FOUND_SOFT:
+                return '找不到软件';
+            case ERR_API_TOKEN:
+                return 'API TOKEN 认证失败';
+            case ERR_API_AUTH:
+                return 'API 权限 认证失败';
+            default:
+                return '未知';
+        }
+    }
+}
 
 // 成功
 define('ERR_SUCCESS', 0xFFFF0000);
