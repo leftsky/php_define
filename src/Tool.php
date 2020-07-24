@@ -7,9 +7,11 @@
 
 namespace leftsky;
 
+use leftsky\Tool as LeftTool;
+
 class Tool
 {
-    public function ERR($code)
+    static public function ERR($code)
     {
         switch ($code) {
             case ERR_SUCCESS:
@@ -29,17 +31,17 @@ class Tool
         }
     }
 
-    function rsps($code, $data = null, $msg = null)
+    static function rsps($code, $data = null, $msg = null)
     {
         return $response = response([
             "code" => $code,
-            "msg" => $msg ?? $this->ERR($code),
+            "msg" => $msg ?? Tool::ERR($code),
             "data" => $data
         ]);
     }
 
     // 判断是否是json
-    function is_json($string)
+    static function is_json($string)
     {
         try {
             json_decode($string);
@@ -47,6 +49,21 @@ class Tool
             return false;
         }
         return (json_last_error() == JSON_ERROR_NONE);
+    }
+
+    // 请将这段代码复制到api.php中
+    private function shouldCopy()
+    {
+
+        function rsps($code, $data = null, $msg = null)
+        {
+            LeftTool::rsps($code, $data = null, $msg = null);
+        }
+
+        function is_json($string)
+        {
+            return LeftTool::is_json($string);
+        }
     }
 }
 
