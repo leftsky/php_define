@@ -101,12 +101,12 @@ if (!function_exists('is_json')) {
 if (!function_exists('explodeOrEmpty')) {
     /**
      * 判断是否是字符串并且切割
-     * @param string $string
+     * @param $string
      * @return array
      */
-    function explodeOrEmpty(string $string)
+    function explodeOrEmpty($string)
     {
-        if (!$string || strlen($string) <= 0) {
+        if (!$string || !is_string($string) || strlen($string) <= 0) {
             return [];
         }
         return explode(",", $string);
