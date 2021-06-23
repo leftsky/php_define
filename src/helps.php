@@ -61,6 +61,13 @@ if (!function_exists('ERR_')) {
 }
 
 if (!function_exists('rsps') && function_exists('response')) {
+    /**
+     * laravel 封装回执
+     * @param $code
+     * @param null $data
+     * @param null $msg
+     * @return mixed
+     */
     function rsps($code, $data = null, $msg = null)
     {
         return $response = response([
@@ -88,5 +95,20 @@ if (!function_exists('is_json')) {
             return false;
         }
         return (json_last_error() == JSON_ERROR_NONE);
+    }
+}
+
+if (!function_exists('explodeOrEmpty')) {
+    /**
+     * 判断是否是字符串并且切割
+     * @param string $string
+     * @return array
+     */
+    function explodeOrEmpty(string $string)
+    {
+        if (!$string || strlen($string) <= 0) {
+            return [];
+        }
+        return explode(",", $string);
     }
 }
