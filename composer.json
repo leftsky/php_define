@@ -13,7 +13,7 @@
       "leftsky\\": "src/"
     },
     "files": [
-      "src/Tools.php"
+      "src/helps.php"
     ]
   },
   "require": {

@@ -5,8 +5,6 @@
  * Version: 0.1.2
  */
 
-namespace leftsky;
-
 // 成功
 define('ERR_SUCCESS', 0xFFFF0000);
 // 普通失败
