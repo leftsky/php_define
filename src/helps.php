@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Author: Left.Sky
  * Date: 2021/06/23
@@ -60,21 +61,39 @@ if (!function_exists('ERR_')) {
     }
 }
 
-if (!function_exists('rsps') && function_exists('response')) {
-    /**
-     * laravel 封装回执
-     * @param $code
-     * @param null $data
-     * @param null $msg
-     * @return mixed
-     */
-    function rsps($code, $data = null, $msg = null)
-    {
-        return $response = response([
-            "code" => $code,
-            "msg" => $msg ?? ERR_($code),
-            "data" => $data
-        ]);
+if (!function_exists('rsps')) {
+    if (function_exists('response')) {
+        /**
+         * laravel 封装回执
+         * @param $code
+         * @param null $data
+         * @param null $msg
+         * @return mixed
+         */
+        function rsps($code, $data = null, $msg = null)
+        {
+            return $response = response([
+                "code" => $code,
+                "msg" => $msg ?? ERR_($code),
+                "data" => $data
+            ]);
+        }
+    } else {
+        /**
+         * thinkphp 封装回执
+         * @param $code
+         * @param null $data
+         * @param null $msg
+         * @return mixed
+         */
+        function rsps($code, $data = null, $msg = null)
+        {
+            return $response = json([
+                "code" => $code,
+                "msg" => $msg ?? ERR_($code),
+                "data" => $data
+            ]);
+        }
     }
 }
 
