@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Author: Left.Sky
- * Date: 2021/06/23
- * Version: 0.1.2
- */
-
 // 成功
 define('ERR_SUCCESS', 0xFFFF0000);
 // 普通失败
@@ -100,19 +94,19 @@ if (!function_exists('rsps')) {
 if (!function_exists('is_json')) {
     /**
      * 判断是否是json
-     * @param string $string
+     * @param $string
      * @return bool
      */
-    function is_json(string $string)
+    function is_json($string)
     {
+        // 如果不是 String 类型就返回 false
+        if (!is_string($string)) return false;
         try {
             json_decode($string);
         } catch (\Exception $e) {
             return false;
         }
-        if ($string == "null") {
-            return false;
-        }
+        if ($string == "null") return false;
         return (json_last_error() == JSON_ERROR_NONE);
     }
 }
@@ -125,9 +119,7 @@ if (!function_exists('explodeOrEmpty')) {
      */
     function explodeOrEmpty($string)
     {
-        if (!$string || !is_string($string) || strlen($string) <= 0) {
-            return [];
-        }
+        if (!$string || !is_string($string) || strlen($string) <= 0) return [];
         return explode(",", $string);
     }
 }

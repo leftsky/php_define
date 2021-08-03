@@ -1,6 +1,6 @@
 {
   "name": "leftsky/php_define",
-  "description": "PHP 宏定义",
+  "description": "PHP 宏定义 助手函数 【laravel、thinkphp 返回封装】",
   "authors": [
     {
       "name": "leftsky",
@@ -18,5 +18,6 @@
   },
   "require": {
     "ext-json": "*"
-  }
+  },
+  "version": "0.0.1"
 }
