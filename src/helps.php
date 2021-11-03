@@ -123,3 +123,53 @@ if (!function_exists('explodeOrEmpty')) {
         return explode(",", $string);
     }
 }
+
+if (!function_exists("get_shuxiang")) {
+    function get_shuxiang($year)
+    {
+        $array = array('猴', '鸡', '狗', '猪', '鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊');
+        foreach ($array as $key => $value) {
+//            echo $key . "..." . $value;
+            if (ceil($year % 12) == $key) {
+                return $value;
+            }
+        }
+        return "未知";
+    }
+}
+if (!function_exists("get_xingzuo")) {
+    function get_xingzuo($month, $day)
+    {
+        $xingzuo = '';
+        // 检查参数有效性
+        if ($month < 1 || $month > 12 || $day < 1 || $day > 31) {
+            return $xingzuo;
+        }
+        if (($month == 1 && $day >= 20) || ($month == 2 && $day <= 18)) {
+            $xingzuo = "水瓶";
+        } else if (($month == 2 && $day >= 19) || ($month == 3 && $day <= 20)) {
+            $xingzuo = "双鱼";
+        } else if (($month == 3 && $day >= 21) || ($month == 4 && $day <= 19)) {
+            $xingzuo = "白羊";
+        } else if (($month == 4 && $day >= 20) || ($month == 5 && $day <= 20)) {
+            $xingzuo = "金牛";
+        } else if (($month == 5 && $day >= 21) || ($month == 6 && $day <= 21)) {
+            $xingzuo = "双子";
+        } else if (($month == 6 && $day >= 22) || ($month == 7 && $day <= 22)) {
+            $xingzuo = "巨蟹";
+        } else if (($month == 7 && $day >= 23) || ($month == 8 && $day <= 22)) {
+            $xingzuo = "狮子";
+        } else if (($month == 8 && $day >= 23) || ($month == 9 && $day <= 22)) {
+            $xingzuo = "处女";
+        } else if (($month == 9 && $day >= 23) || ($month == 10 && $day <= 23)) {
+            $xingzuo = "天秤";
+        } else if (($month == 10 && $day >= 24) || ($month == 11 && $day <= 22)) {
+            $xingzuo = "天蝎";
+        } else if (($month == 11 && $day >= 23) || ($month == 12 && $day <= 21)) {
+            $xingzuo = "射手";
+        } else if (($month == 12 && $day >= 22) || ($month == 1 && $day <= 19)) {
+            $xingzuo = "摩羯";
+        }
+        return $xingzuo;
+    }
+}
