@@ -1,0 +1,6 @@
+# 加载如 Docker 容器
+services:
+  define:
+    image: leftsky/php
+    volumes:
+      - "./:/var/www"

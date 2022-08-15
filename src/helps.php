@@ -26,7 +26,7 @@ define('ERR_API_TOKEN', 0xFFFE0000);
 define('ERR_API_AUTH', 0xFFFE0001);
 
 if (!function_exists('ERR_')) {
-    function ERR_($code)
+    function ERR_(int $code): string
     {
         switch ($code) {
             case ERR_SUCCESS:
@@ -59,12 +59,12 @@ if (!function_exists('rsps')) {
     if (function_exists('response')) {
         /**
          * laravel 封装回执
-         * @param $code
+         * @param int $code
          * @param null $data
-         * @param null $msg
+         * @param string|null $msg
          * @return mixed
          */
-        function rsps($code, $data = null, $msg = null)
+        function rsps(int $code, $data = null, string $msg = null)
         {
             return $response = response([
                 "code" => $code,
@@ -75,12 +75,12 @@ if (!function_exists('rsps')) {
     } else {
         /**
          * thinkphp 封装回执
-         * @param $code
+         * @param int $code
          * @param null $data
-         * @param null $msg
+         * @param string|null $msg
          * @return mixed
          */
-        function rsps($code, $data = null, $msg = null)
+        function rsps(int $code, $data = null, string $msg = null)
         {
             return $response = json([
                 "code" => $code,
@@ -97,7 +97,7 @@ if (!function_exists('is_json')) {
      * @param $string
      * @return bool
      */
-    function is_json($string)
+    function is_json($string): bool
     {
         // 如果不是 String 类型就返回 false
         if (!is_string($string)) return false;
@@ -114,10 +114,10 @@ if (!function_exists('is_json')) {
 if (!function_exists('explodeOrEmpty')) {
     /**
      * 判断是否是字符串并且切割
-     * @param $string
+     * @param string $string
      * @return array
      */
-    function explodeOrEmpty($string)
+    function explodeOrEmpty(string $string): array
     {
         if (!$string || !is_string($string) || strlen($string) <= 0) return [];
         return explode(",", $string);
@@ -125,7 +125,7 @@ if (!function_exists('explodeOrEmpty')) {
 }
 
 if (!function_exists("get_shuxiang")) {
-    function get_shuxiang($year)
+    function get_shuxiang(int $year): string
     {
         $array = array('猴', '鸡', '狗', '猪', '鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊');
         foreach ($array as $key => $value) {
@@ -138,7 +138,7 @@ if (!function_exists("get_shuxiang")) {
     }
 }
 if (!function_exists("get_xingzuo")) {
-    function get_xingzuo($month, $day)
+    function get_xingzuo(int $month, int $day): string
     {
         $xingzuo = '';
         // 检查参数有效性
@@ -171,5 +171,66 @@ if (!function_exists("get_xingzuo")) {
             $xingzuo = "摩羯";
         }
         return $xingzuo;
+    }
+}
+
+if (!function_exists("decode_shuxiang")) {
+    function decode_shuxiang(int $year): string
+    {
+        $array = ['猴', '鸡', '狗', '猪', '鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊'];
+        foreach ($array as $key => $value)
+            if (intval(ceil($year % 12)) === $key) return $value;
+        return "未知";
+    }
+}
+
+if (!function_exists("check_extensions")) {
+    /**
+     * 校验是否加载了扩展，全部加载则返回true；未加载直接返回未加载的扩展
+     * @param array $extensions
+     * @return string|bool
+     */
+    function check_extensions(array $extensions)
+    {
+        foreach ($extensions as $extension) {
+            if (!extension_loaded($extension)) {
+                return $extension;
+            }
+        }
+        return true;
+    }
+}
+
+
+if (!function_exists('randomCode')) {
+    /**
+     * 随机指定长度的字符串
+     * @param int $len
+     * @param bool $hasNumber
+     * @param bool $hasUpCase
+     * @return string
+     */
+    function random_str(int $len = 10, bool $hasNumber = false, bool $hasUpCase = false): string
+    {
+        $arr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
+            "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        if ($hasUpCase)
+            $arr = array_merge($arr, ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+                "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+            ]);
+        if ($hasNumber)
+            $arr = array_merge($arr, ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+        $str = "";
+        while (strlen($str) < $len) $str .= $arr[rand(0, sizeof($arr) - 1)];
+        return $str;
+    }
+}
+
+if (!function_exists("decode_cityCode")) {
+    function decode_cityCode(string $code): string
+    {
+        $arr = json_decode(file_get_contents(__DIR__ . "/jsons/cityCode.json"), true);
+        $cities = $arr["cities"] ?? [];
+        return $cities[$code] ?? "未知";
     }
 }
